@@ -4,9 +4,14 @@ import com.google.code.jgntp.Gntp;
 import com.google.code.jgntp.GntpApplicationInfo;
 import com.google.code.jgntp.GntpClient;
 import com.google.code.jgntp.GntpNotificationInfo;
+import com.google.common.io.Closeables;
 import core.Settings;
 import stash.pullrequest.PullRequest;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,13 +30,7 @@ public class GrowlClient {
 
     public GrowlClient(Settings settings) {
         this.settings = settings;
-        URI icon = null;
-        try {
-            icon = this.getClass().getResource("../stash-3d.png").toURI();
-        } catch (URISyntaxException e) {
-            icon = null;
-        }
-        GntpApplicationInfo info = Gntp.appInfo("Stash").icon(icon).build();
+        GntpApplicationInfo info = Gntp.appInfo("Stash").icon(getImage("/stash-3d.png")).build();
         pullRequestNotification = Gntp.notificationInfo(info, "Pull Request").build();
         pullRequestWithUserNotification = Gntp.notificationInfo(info, "Pull Request Including User").build();
         gntpClient = Gntp.client(info).forHost("localhost").build();
@@ -52,6 +51,17 @@ public class GrowlClient {
                     .build(), 5, SECONDS);
         } catch (InterruptedException e) {
             System.err.println("Notification interrupted");
+        }
+    }
+
+    private RenderedImage getImage(String name) {
+        InputStream is = getClass().getResourceAsStream(name);
+        try {
+            return ImageIO.read(is);
+        } catch (IOException e) {
+            return null;
+        } finally {
+            Closeables.closeQuietly(is);
         }
     }
 }
