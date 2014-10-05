@@ -37,9 +37,11 @@ public class RestAPI {
             }
             return pullRequests;
         } catch (IOException e) {
-            System.err.println("API Call failed");
+            System.err.println("API Call failed:");
+            e.printStackTrace();
         } catch (ParseException e) {
-            System.err.println("API Call failed");
+            System.err.println("API Call failed:");
+            e.printStackTrace();
         }
         return new ArrayList<PullRequest>(0);
     }
