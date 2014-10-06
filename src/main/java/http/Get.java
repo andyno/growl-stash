@@ -8,6 +8,7 @@ import org.apache.http.client.AuthCache;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -55,7 +56,7 @@ public class Get {
         AuthCache authCache = new BasicAuthCache();
         authCache.put(httpHost, new BasicScheme());
         BasicHttpContext httpContext = new BasicHttpContext();
-        httpContext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+        httpContext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
         
         HttpGet get = new HttpGet(baseUrl + "/" + urlString);
 
