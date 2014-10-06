@@ -1,22 +1,24 @@
 package growl;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import stash.pullrequest.PullRequest;
+
 import com.google.code.jgntp.Gntp;
 import com.google.code.jgntp.GntpApplicationInfo;
 import com.google.code.jgntp.GntpClient;
 import com.google.code.jgntp.GntpNotificationInfo;
 import com.google.common.io.Closeables;
+
 import core.Settings;
-import stash.pullrequest.PullRequest;
-
-import javax.imageio.ImageIO;
-import java.awt.image.RenderedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by astrate on 03.10.2014.

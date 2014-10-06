@@ -29,6 +29,7 @@ public class MockGet extends Get {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
+            reader.close();
             return (JSONObject)new JSONParser().parse(sb.toString());
         } catch (IOException e) {
             e.printStackTrace();
