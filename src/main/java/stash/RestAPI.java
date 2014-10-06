@@ -20,12 +20,11 @@ public class RestAPI {
     public RestAPI(String username, String password, String baseUrl) {
         get = new Get(username, password, baseUrl);
     }
-
-    public List<PullRequest> getPullRequests(String project, String repository, String filter) {
-        return getPullRequests(get, project, repository, filter);
+    public RestAPI(Get get) {
+        this.get = get;
     }
 
-    public List<PullRequest> getPullRequests(Get get, String project, String repository, String filter) {
+    public List<PullRequest> getPullRequests(String project, String repository, String filter) {
         try {
             JSONObject jsonObject = get.execute(String.format("rest/api/1.0/projects/%s/repos/%s/pull-requests", project, repository));
             List<PullRequest> pullRequests = new ArrayList<PullRequest>();
@@ -38,10 +37,8 @@ public class RestAPI {
             return pullRequests;
         } catch (IOException e) {
             System.err.println("API Call failed:");
-            e.printStackTrace();
         } catch (ParseException e) {
             System.err.println("API Call failed:");
-            e.printStackTrace();
         }
         return new ArrayList<PullRequest>(0);
     }
