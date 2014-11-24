@@ -57,6 +57,8 @@ public class LoginDialog extends JDialog {
             }
         });
 
+        getRootPane().setDefaultButton(btnLogin);
+
         JPanel bp = new JPanel();
         bp.add(btnLogin);
 
